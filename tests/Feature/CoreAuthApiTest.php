@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\System;
 use App\Models\User;
-use Laravel\Sanctum\Sanctum;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -54,7 +54,7 @@ class CoreAuthApiTest extends TestCase
     {
         $user = User::factory()->create(['is_active' => true]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->getJson('/api/me')
             ->assertOk()
@@ -90,7 +90,7 @@ class CoreAuthApiTest extends TestCase
             'granted_at' => now(),
         ]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->getJson('/api/my-systems')
             ->assertOk()
@@ -119,7 +119,7 @@ class CoreAuthApiTest extends TestCase
             'role_code' => 'manager',
         ]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->postJson('/api/system-access/check', [
             'system_code' => 'shelf',
@@ -152,7 +152,7 @@ class CoreAuthApiTest extends TestCase
             ['system_id' => $system->id, 'permission' => 'update'],
         ]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->postJson('/api/system-access/check', [
             'system_code' => 'shelf',
@@ -180,7 +180,7 @@ class CoreAuthApiTest extends TestCase
             'granted_at' => now(),
         ]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->postJson('/api/system-access/check', [
             'system_code' => 'shelf',
@@ -210,7 +210,7 @@ class CoreAuthApiTest extends TestCase
             'permission' => 'view',
         ]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $response = $this->postJson('/api/system-access/check', [
             'system_code' => 'shelf',
@@ -224,7 +224,7 @@ class CoreAuthApiTest extends TestCase
     {
         $user = User::factory()->create(['is_active' => true]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->postJson('/api/auth/logout')
             ->assertOk()
@@ -247,7 +247,7 @@ class CoreAuthApiTest extends TestCase
             'granted_at' => now(),
         ]);
 
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->postJson('/api/system-access/check', [
             'system_code' => 'shelf',

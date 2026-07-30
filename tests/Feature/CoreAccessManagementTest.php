@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
-use Laravel\Sanctum\Sanctum;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class CoreAccessManagementTest extends TestCase
@@ -79,7 +79,7 @@ class CoreAccessManagementTest extends TestCase
         ]);
 
         $user = User::factory()->create(['is_active' => true]);
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->postJson("/api/systems/shelf/permissions", [
             'permissions' => [
@@ -115,7 +115,7 @@ class CoreAccessManagementTest extends TestCase
         ]);
 
         $user = User::factory()->create(['is_active' => true]);
-        Sanctum::actingAs($user);
+        Passport::actingAs($user);
 
         $this->postJson("/api/systems/shelf/permissions", [
             'permissions' => [

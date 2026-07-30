@@ -12,6 +12,7 @@ class System extends Model
         'name',
         'base_url',
         'is_active',
+        'oauth_client_id',
     ];
 
     protected function casts(): array

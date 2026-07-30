@@ -51,7 +51,11 @@ class AuthController extends Controller
     {
         LogAuthentication::record($request, 'logout');
         
-        $request->user()->currentAccessToken()?->delete();
+        if (method_exists($request->user(), 'token') && $request->user()->token()) {
+            $request->user()->token()->revoke();
+        } else if (method_exists($request->user(), 'currentAccessToken') && $request->user()->currentAccessToken()) {
+            $request->user()->currentAccessToken()->delete();
+        }
 
         return response()->json([
             'message' => 'Logged out successfully.',
