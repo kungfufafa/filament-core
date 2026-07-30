@@ -21,4 +21,6 @@ Route::middleware('auth:api')->group(function (): void {
     
     // The new OAuth SSO system
     Route::get('/oauth/me', [OAuthUserController::class, 'me']);
+    Route::get('/oauth/sessions', [\App\Http\Controllers\Api\OAuthSessionController::class, 'index']);
+    Route::delete('/oauth/sessions/{tokenId}', [\App\Http\Controllers\Api\OAuthSessionController::class, 'destroy']);
 });
