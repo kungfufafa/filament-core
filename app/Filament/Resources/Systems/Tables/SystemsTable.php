@@ -22,6 +22,9 @@ class SystemsTable
                     ->searchable(),
                 TextColumn::make('base_url')
                     ->searchable(),
+                TextColumn::make('oauth_client_id')
+                    ->searchable()
+                    ->toggleable(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')

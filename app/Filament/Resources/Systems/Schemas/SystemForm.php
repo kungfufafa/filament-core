@@ -18,6 +18,9 @@ class SystemForm
                     ->required(),
                 TextInput::make('base_url')
                     ->url(),
+                TextInput::make('oauth_client_id')
+                    ->label('OAuth Client ID')
+                    ->helperText('Client ID generated from Laravel Passport for this System'),
                 Toggle::make('is_active')
                     ->required(),
             ]);
